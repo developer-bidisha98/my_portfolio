@@ -66,6 +66,18 @@ body {
     color: #eaf6ff;
 }
 
+.skill-name{ font-weight:700; margin-bottom:8px; }
+.progress{ height: 18px; background: rgba(255,255,255,0.06); border-radius: 12px; overflow: hidden; }
+.progress-bar{ display:flex; align-items:center; justify-content:flex-end; padding-right:8px; font-weight:600; }
+.skill-html{ background: linear-gradient(90deg,#8b5cf6,#06b6d4); }
+.skill-css{ background: linear-gradient(90deg,#7c3aed,#06b6d4); }
+.skill-bootstrap{ background: linear-gradient(90deg,#06b6d4,#7c3aed); }
+.skill-js{ background: linear-gradient(90deg,#f7df1e,#f59e0b); color:#0b1220; }
+.skill-figma{ background: linear-gradient(90deg,#ff7ab6,#ffb86b); color:#0b1220; }
+.skill-canva{ background: linear-gradient(90deg,#06b6d4,#7c3aed); }
+.skill-ux{ background: linear-gradient(90deg,#7c3aed,#06b6d4); }
+.skill-responsive{ background: linear-gradient(90deg,#06b6d4,#8b5cf6); }
+
 .accent-text { color: var(--accent1); font-weight:700; }
 .btn-accent {
     background: linear-gradient(135deg,var(--accent1),var(--accent2));

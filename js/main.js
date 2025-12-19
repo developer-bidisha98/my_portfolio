@@ -21,4 +21,20 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   });
+
+  // Contact form: open mail client with prefilled message
+  var contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var formData = new FormData(contactForm);
+      var name = formData.get('name') || '';
+      var email = formData.get('email') || '';
+      var message = formData.get('message') || '';
+      var subject = encodeURIComponent('Portfolio inquiry from ' + name);
+      var body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+      var mailto = 'mailto:bidishahalder678@gmail.com?subject=' + subject + '&body=' + body;
+      window.location.href = mailto;
+    });
+  }
 });
