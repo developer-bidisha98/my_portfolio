@@ -14,7 +14,7 @@ body {
 }
 
 .hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    background: linear-gradient(rgba(199, 204, 237, 0.6), rgba(213, 206, 206, 0.6)),
         url('https://source.unsplash.com/1600x900/?technology,webdesign') center/cover no-repeat;
     height: 90vh;
     color: white;
@@ -36,6 +36,9 @@ body {
     margin: 0 1rem;
     padding: 2.2rem;
     border-radius: 20px;
+}
+.textA{
+    color: #090439;
 }
 
 .glass {
@@ -90,11 +93,11 @@ body {
 }
 .btn-accent:hover{ filter: brightness(1.05); }
 
-.img-fluid.rounded {
+/* .img-fluid.rounded {
     max-width: 320px;
     width: 100%;
     height: auto;
-}
+} */
 
 .profile-img{
     border-radius: 50%;
@@ -157,6 +160,7 @@ footer {
     background: rgba(255,255,255,0.015);
     border: 1px solid rgba(124,58,237,0.06);
 }
+
 
 @media (max-width: 992px) {
     .hero h1 { font-size: 2.4rem; }
