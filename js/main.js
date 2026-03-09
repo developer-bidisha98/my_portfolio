@@ -26,7 +26,7 @@ window.addEventListener('scroll', function () {
 
 // Animate counters in About section
 function animateCounters() {
-  var statNumbers = document.querySelectorAll('.stat-number');
+  const statNumbers = document.querySelectorAll('.stat-number');
 
   statNumbers.forEach(function (stat) {
 
@@ -97,9 +97,53 @@ if (copyEmailBtn) {
   });
 }
 
+// Typewriter animation
+function typeWriter() {
+  var typewriterElement = document.getElementById('typewriter');
+  if (!typewriterElement) return;
+  
+  var messages = [
+    'a passionate Web Designer & Frontend Developer',
+    'specialized in modern web technologies',
+    'dedicated to creating beautiful experiences'
+  ];
+  
+  var messageIndex = 0;
+  var charIndex = 0;
+  var currentMessage = messages[messageIndex];
+  var isDeleting = false;
+  
+  function type() {
+    if (isDeleting) {
+      if (charIndex > 0) {
+        charIndex--;
+        typewriterElement.textContent = currentMessage.substring(0, charIndex);
+        setTimeout(type, 50);
+      } else {
+        isDeleting = false;
+        messageIndex = (messageIndex + 1) % messages.length;
+        currentMessage = messages[messageIndex];
+        setTimeout(type, 500);
+      }
+    } else {
+      if (charIndex < currentMessage.length) {
+        charIndex++;
+        typewriterElement.textContent = currentMessage.substring(0, charIndex);
+        setTimeout(type, 100);
+      } else {
+        isDeleting = true;
+        setTimeout(type, 2000);
+      }
+    }
+  }
+  
+  type();
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   animateCounters();
-  // typeWriter();
+  typeWriter();
+  initProjectTilt();
 
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener('click', function (e) {
@@ -134,25 +178,24 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // ===== BACK TO TOP BUTTON =====
-  var backToTopBtn = document.getElementById('backToTop');
+  const backToTopBtn = document.getElementById("backToTop");
+
   if (backToTopBtn) {
-    window.addEventListener('scroll', function () {
-      if (window.pageYOffset > 300) {
-        backToTopBtn.classList.add('show');
+    window.addEventListener("scroll", function () {
+      if (window.scrollY > 150) {
+        backToTopBtn.classList.add("show");
       } else {
-        backToTopBtn.classList.remove('show');
+        backToTopBtn.classList.remove("show");
       }
     });
 
-    backToTopBtn.addEventListener('click', function () {
+    backToTopBtn.addEventListener("click", function () {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: "smooth"
       });
     });
   }
-
-
 
   // ===== ACTIVE NAVIGATION HIGHLIGHTING =====
   function updateActiveNav() {
@@ -288,18 +331,18 @@ document.addEventListener('DOMContentLoaded', function () {
   updateScrollProgress();
 
   // ===== PROJECT SEARCH/FILTER =====
-    var projectSearch = document.getElementById('projectSearch');
+  var projectSearch = document.getElementById('projectSearch');
 
-if (projectSearch) {
+  if (projectSearch) {
 
-  var projectItems = document.querySelectorAll('.project-item');
-  var projectGroups = document.querySelectorAll('.project-group');
-  var projectsContainer = document.querySelector('.projects-container');
+    var projectItems = document.querySelectorAll('.project-item');
+    var projectGroups = document.querySelectorAll('.project-group');
+    var projectsContainer = document.querySelector('.projects-container');
 
-  // Create message once
-  var noResultsMessage = document.createElement('div');
-  noResultsMessage.className = 'no-results-message';
-  noResultsMessage.innerHTML = `
+    // Create message once
+    var noResultsMessage = document.createElement('div');
+    noResultsMessage.className = 'no-results-message';
+    noResultsMessage.innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="11" cy="11" r="8"></circle>
@@ -309,66 +352,66 @@ if (projectSearch) {
     <p>Try searching with different keywords</p>
   `;
 
-  noResultsMessage.style.display = "none";
-  projectsContainer.appendChild(noResultsMessage);
+    noResultsMessage.style.display = "none";
+    projectsContainer.appendChild(noResultsMessage);
 
-  projectSearch.addEventListener('keyup', function () {
+    projectSearch.addEventListener('input', function () {
 
-    var searchQuery = this.value.toLowerCase();
-    var visibleCount = 0;
+      var searchQuery = this.value.toLowerCase();
+      var visibleCount = 0;
 
-    projectItems.forEach(function (item) {
+      projectItems.forEach(function (item) {
 
-      var projectTitle = item.querySelector('.project-title').textContent.toLowerCase();
-      var projectDesc = item.querySelector('.project-desc').textContent.toLowerCase();
+        var projectTitle = item.querySelector('.project-title').textContent.toLowerCase();
+        var projectDesc = item.querySelector('.project-desc').textContent.toLowerCase();
 
-      var techBadges = Array.from(item.querySelectorAll('.tech-badge'))
-        .map(function (badge) {
-          return badge.textContent.toLowerCase();
-        }).join(' ');
+        var techBadges = Array.from(item.querySelectorAll('.tech-badge'))
+          .map(function (badge) {
+            return badge.textContent.toLowerCase();
+          }).join(' ');
 
-      var matchesSearch =
-        projectTitle.includes(searchQuery) ||
-        projectDesc.includes(searchQuery) ||
-        techBadges.includes(searchQuery);
+        var matchesSearch =
+          projectTitle.includes(searchQuery) ||
+          projectDesc.includes(searchQuery) ||
+          techBadges.includes(searchQuery);
 
-      if (searchQuery === '' || matchesSearch) {
+        if (searchQuery === '' || matchesSearch) {
 
-        item.style.display = 'block';
-        item.style.opacity = '1';
-        visibleCount++;
+          item.style.display = 'block';
+          item.style.opacity = '1';
+          visibleCount++;
 
+        } else {
+
+          item.style.display = 'none';
+          item.style.opacity = '0';
+
+        }
+
+      });
+
+      // Show or hide "no results"
+      if (searchQuery !== '' && visibleCount === 0) {
+        noResultsMessage.style.display = "block";
       } else {
-
-        item.style.display = 'none';
-        item.style.opacity = '0';
-
+        noResultsMessage.style.display = "none";
       }
 
-    });
+      // Show or hide groups
+      projectGroups.forEach(function (group) {
 
-    // Show or hide "no results"
-    if (searchQuery !== '' && visibleCount === 0) {
-      noResultsMessage.style.display = "block";
-    } else {
-      noResultsMessage.style.display = "none";
-    }
+        var visibleInGroup = Array.from(group.querySelectorAll('.project-item'))
+          .filter(function (item) {
+            return item.style.display !== 'none';
+          }).length;
 
-    // Show or hide groups
-    projectGroups.forEach(function (group) {
+        group.style.display = visibleInGroup === 0 ? 'none' : 'block';
 
-      var visibleInGroup = Array.from(group.querySelectorAll('.project-item'))
-        .filter(function (item) {
-          return item.style.display !== 'none';
-        }).length;
-
-      group.style.display = visibleInGroup === 0 ? 'none' : 'block';
+      });
 
     });
 
-  });
-
-}
+  }
 
   // Fade-in animations on scroll
   function handleScrollAnimations() {
@@ -379,6 +422,27 @@ if (projectSearch) {
       if (rect.top <= windowHeight * 0.8) {
         element.classList.add('visible');
       }
+    });
+  }
+
+  // 3D tilt effect for project cards
+  function initProjectTilt() {
+    var cards = document.querySelectorAll('.project-card');
+    cards.forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        var cx = rect.width / 2;
+        var cy = rect.height / 2;
+        var dx = (x - cx) / cx;
+        var dy = (y - cy) / cy;
+        var maxDeg = 12;
+        card.style.transform = 'rotateY(' + (dx * maxDeg) + 'deg) rotateX(' + (-dy * maxDeg) + 'deg) translateZ(20px)';
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.transform = 'translateY(0)';
+      });
     });
   }
 
