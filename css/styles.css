@@ -33,11 +33,34 @@ body {
     z-index: 1030;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
+    background: rgba(15, 23, 36, 0.95);
 }
 
 .sticky-navbar.scrolled {
     background: rgba(15, 23, 36, 0.98) !important;
     backdrop-filter: blur(10px);
+    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.15);
+}
+
+.navbar-brand {
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-brand:hover {
+    transform: translateY(-2px);
+}
+
+.navbar-brand img {
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+}
+
+.navbar-brand:hover img {
+    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.5);
+    transform: scale(1.05);
 }
 
 /* Toast Notifications */
@@ -1251,14 +1274,32 @@ section#contact {
 }
 
 .nav-link {
-    transition: color var(--transition-fast);
+    transition: color var(--transition-fast), background var(--transition-fast);
     padding: 8px 16px;
     border-radius: 6px;
+    position: relative;
+    color: rgba(230, 238, 248, 0.8);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 16px;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    border-radius: 1px;
+    transition: width 0.3s ease;
 }
 
 .nav-link:hover {
     color: var(--accent1) !important;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(124, 58, 237, 0.08);
+}
+
+.nav-link:hover::after {
+    width: calc(100% - 32px);
 }
 
 /* Footer */
@@ -1559,8 +1600,15 @@ footer {
 
 /* Active Navigation Link */
 .nav-link.active {
-    color: #7c3aed !important;
-    border-bottom: 2px solid #7c3aed;
+    color: var(--accent1) !important;
+    background: rgba(124, 58, 237, 0.12);
+}
+
+.nav-link.active::after {
+    width: calc(100% - 32px);
+    height: 2.5px;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    box-shadow: 0 0 8px rgba(124, 58, 237, 0.5);
 }
 
 /* Form Success/Error Messages */
