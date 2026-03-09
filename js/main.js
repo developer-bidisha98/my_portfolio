@@ -101,18 +101,18 @@ if (copyEmailBtn) {
 function typeWriter() {
   var typewriterElement = document.getElementById('typewriter');
   if (!typewriterElement) return;
-  
+
   var messages = [
     'a passionate Web Designer & Frontend Developer',
     'specialized in modern web technologies',
     'dedicated to creating beautiful experiences'
   ];
-  
+
   var messageIndex = 0;
   var charIndex = 0;
   var currentMessage = messages[messageIndex];
   var isDeleting = false;
-  
+
   function type() {
     if (isDeleting) {
       if (charIndex > 0) {
@@ -136,7 +136,7 @@ function typeWriter() {
       }
     }
   }
-  
+
   type();
 }
 
