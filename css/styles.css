@@ -1342,6 +1342,11 @@ footer p {
     width: 0%;
     transition: width 0.1s ease;
 }
+.img-thumbnail{
+    background-color: rgb(106, 106, 108);
+    border: 0px;
+    border-radius: 15px;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
