@@ -145,6 +145,68 @@ document.addEventListener('DOMContentLoaded', function () {
   typeWriter();
   initProjectTilt();
 
+  // ===== IMAGE LIGHTBOX FOR PROJECT CAROUSELS =====
+  (function () {
+    var lightbox = document.getElementById('imageLightbox');
+    var lightboxImg = document.getElementById('lightboxImg');
+    var closeBtn = document.getElementById('lightboxClose');
+    var prevBtn = document.getElementById('lightboxPrev');
+    var nextBtn = document.getElementById('lightboxNext');
+
+    if (!lightbox) return;
+
+    var currentImages = [];
+    var currentIndex = 0;
+
+    function openLightbox(images, index) {
+      currentImages = images;
+      currentIndex = index;
+      lightboxImg.src = currentImages[currentIndex].src;
+      lightboxImg.alt = currentImages[currentIndex].alt;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function showImage(newIndex) {
+      if (currentImages.length === 0) return;
+      currentIndex = (newIndex + currentImages.length) % currentImages.length;
+      lightboxImg.src = currentImages[currentIndex].src;
+      lightboxImg.alt = currentImages[currentIndex].alt;
+    }
+
+    // Attach click listeners to every carousel image
+    document.querySelectorAll('.project-carousel').forEach(function (carousel) {
+      var images = Array.from(carousel.querySelectorAll('.carousel-item img'));
+      images.forEach(function (img, idx) {
+        img.addEventListener('click', function () {
+          openLightbox(images, idx);
+        });
+      });
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+    prevBtn.addEventListener('click', function () { showImage(currentIndex - 1); });
+    nextBtn.addEventListener('click', function () { showImage(currentIndex + 1); });
+
+    // Click outside image to close
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    // Keyboard support
+    document.addEventListener('keydown', function (e) {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+      if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+    });
+  })();
+
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener('click', function (e) {
       var targetId = this.getAttribute('href');
